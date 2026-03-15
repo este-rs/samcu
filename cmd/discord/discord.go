@@ -71,10 +71,16 @@ func main() {
 }
 
 func handleMessage(s *discordgo.Session, e *discordgo.MessageCreate) {
-	args := strings.Fields(e.Message.Content)
-	if len(args) == 0 || e.Message.Author.ID == s.State.User.ID {
+  if e.Message.WebhookID != "" && e.Message.Author.ID == s.State.User.ID {
 		return
-	} else if !strings.HasPrefix(args[0], "-") {
+	}
+
+	args := strings.Fields(e.Message.Content)
+	if len(args) == 0 {
+		return
+	} 
+
+	if !strings.HasPrefix(args[0], "-") {
 		if e.Message.GuildID != "" || e.Message.Thread != nil {
 			return
 		}
@@ -85,6 +91,7 @@ func handleMessage(s *discordgo.Session, e *discordgo.MessageCreate) {
 		}
 		args[0] = cmdMatch[1]
 	}
+
 	ok, msg, err := samcu.Respond(args)
 
 	var resp string
