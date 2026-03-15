@@ -13,4 +13,4 @@ COPY ./ilmentufa .
 RUN npm install
 WORKDIR /samcu
 COPY --from=build /go/src/github.com/uakci/samcu/discord ./discord
-ENTRYPOINT /samcu/discord
+ENTRYPOINT ["/samcu/discord"]
