@@ -71,7 +71,7 @@ func main() {
 }
 
 func handleMessage(s *discordgo.Session, e *discordgo.MessageCreate) {
-  if e.Message.WebhookID != "" && e.Message.Author.ID == s.State.User.ID {
+  if e.Message.Author.ID == s.State.User.ID {
 		return
 	}
 
